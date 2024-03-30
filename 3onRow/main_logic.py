@@ -6,7 +6,7 @@
 #
 # Full idea evolution at the bottom
 #---------------------------------------
-matrix = [["0","0","0"],["0","1","0"],["0","2","0"]]
+mx = [["0","0","0"],["0","1","0"],["0","2","0"]]
 options = {"0":"X","1":"O","2":" "}
 stillPlaying = True
 
@@ -16,7 +16,7 @@ def showGame():
     line="|"
     for i in range(0,3):
         for j in range(0,3):
-            line += options.get(matrix[i][j],"NF")
+            line += options.get(mx[i][j],"NF")
             line += "|"
         print(line)
         line="|"
@@ -25,23 +25,55 @@ def showGame():
 def resetGame():   
     for i in range(0,3):
         for j in range(0,3):
-            matrix[i][j]="2" 
+            mx[i][j]="2" 
 
 # Set the player move by position
 def playerMove(player):
     pos=input("Player "+str(player)+" move: ")
     x=int(pos[0])
     y=int(pos[1])
-    matrix[x][y] = str(player)
+    mx[x][y] = str(player)
 
+# -CHECK WIN-
+def checkWin(player):
+    if(checkRow(player) or checkColumn(player) or checkDiagonal(player)):
+        print("Player "+str(player)+" WINS")
+        stillPlaying = False
 
+#Check rows for a win
+def checkRow(player):
+    for i in range(0,3):
+        if(mx[i][0]==str(player) and mx[i][0]==mx[i][1] and mx[i][0]==mx[i][2]):
+            print("row")
+            return True
+    return False
+
+#Check columns for a win
+def checkColumn(player):
+    for i in range(0,3):
+        if(mx[0][i]==str(player) and mx[0][i]==mx[1][i] and mx[0][i]==mx[2][i]):
+            print("column")
+            return True
+    return False
+
+#Check diagonals for a win
+def checkDiagonal(player):
+    #from TopLeft to BottomRight
+    if(mx[0][0]==str(player) and mx[0][0]==mx[1][1] and mx[0][0]==mx[2][2]):
+        return True
+    #form TopRight to BottomLeft  
+    if(mx[0][0]==str(player) and mx[0][0]==mx[1][1] and mx[0][0]==mx[2][2]):
+        return True
+    return False
 
 #---------------------------------------
 print("Game START")
 #showGame()  
-#generateGame()
+resetGame()
 #showGame()
 showGame()
+checkRow(0)
+checkColumn(0)
 
 
 
@@ -49,7 +81,7 @@ showGame()
 
 #---------------------------------------
 # - Variables needed
-# Matrix(3x3) -> Use as base for the game 
+# matrix(3x3) -> Use as base for the game 
 # X and O -> for players
 # Array(3) -> Options for the matrix values (0,1,2)
 #
