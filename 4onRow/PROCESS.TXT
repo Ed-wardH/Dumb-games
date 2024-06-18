@@ -1,0 +1,24 @@
+The structure is a matrix, reading and printing in the easy way the first element goes on top row. In this game the top is the last one, so to set the initial move on the bottom of the matrix we need to know the height and subtrat the row value obtained with our height array.
+
+The matrix is seted as an array of 6 elements or rows, each row is devided in 7 columns. [6 rows X y columns] 
+
+After playing each turn we need to check if any player wins. This check is useless in the first 7 moves but is easier to code a check after each move.
+
+The win check is divided in 4 ways: horizontal, vertical and 2 diagonals. Most optimized way to do the checks is doing a pre-check
+
+- HORIZONTAL 
+--Pre-check: If the adjacent values in the height-array are equal or greater continue with the full-check, otherwise go for the next pre-check.
+--Full-check: To have a win it has to be 4 equal values in a row. Start going left and continue while values are valid or the board ends AND same going right. If while this comprobations the count of repeated values get to 4 its a win, else go for the next check.
+
+- VERTICAL 
+--Pre-check: If the height value is lower than 4 there is no possible win, go next pre-check.
+--Full-check: To have a win there has to be 3 equal values under the last move.
+
+- DIAGONALS 
+Left to Right
+--Pre-check: 
+--Full-check: 
+
+Right to Left 
+--Pre-check: 
+--Full-check: 
