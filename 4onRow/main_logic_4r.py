@@ -18,8 +18,8 @@ col_height=[0,0,0,0,0,0,0]
 #   - PLAYERS = number code for each player // 0-empty  1-Player1  2-Player2
 players=[0,1,2] 
 #   - DIMENSIONS = height and width of the matrix
-height= 5   # total height=6 // max index=5
-width = 6   # total width =7 // max index=6
+ind_height= 5   # total height=6 // max index=5
+ind_width = 6   # total width =7 // max index=6
 
 
 #=============================================
