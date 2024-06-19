@@ -1,3 +1,7 @@
+SOLVE ERRORS
+error in checkH, game stops after 4 elements on same height
+
+=========================================================
 The structure is a matrix, reading and printing in the easy way the first element goes on top row. In this game the top is the last one, so to set the initial move on the bottom of the matrix we need to know the height and subtrat the row value obtained with our height array.
 
 The matrix is seted as an array of 6 elements or rows, each row is devided in 7 columns. [6 rows X y columns] 
