@@ -126,16 +126,18 @@ def checkH(col):
         actual_player=board[pWinRow][col]
         #go Left
         i=1
-        while(pWinRow>=0):
+        while(pWinRow-i>=0):
             if(board[pWinRow][col-i]==actual_player):
                 consecutive_player+=1
+                i+=1
             else:
                 continue
         #go Right
         i=1
-        while(pWinRow<=6):
+        while(pWinRow+i<=6):
             if(board[pWinRow][col+i]==actual_player):
                 consecutive_player+=1
+                i+=1
             else:
                 continue
         if(consecutive_player>3):
