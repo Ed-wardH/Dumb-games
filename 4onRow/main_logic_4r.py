@@ -22,6 +22,7 @@ ind_height= 5   # total height=6 // max index=5
 ind_width = 6   # total width =7 // max index=6
 
 
+
 #=============================================
 # METHODS TO MODIFY THE BOARD
 #=============================================
@@ -47,6 +48,7 @@ def showBoard():
 # =====\ resetBoard() \=====
 # 1- 
 def resetBoard():
+    col_height=[0,0,0,0,0,0,0]
     for x in range(ind_height+1):
         for y in range(ind_width+1):
            board[x][y]=2
@@ -102,51 +104,52 @@ def notAbleMove(col):
 # Do all posible check wins
 def checkWin(lastcolumPLay):
     checkH(lastcolumPLay)
-    checkV(lastcolumPLay)
-    checkLR(lastcolumPLay)
-    checkRL(lastcolumPLay)
+    #checkV(lastcolumPLay)
+    #checkLR(lastcolumPLay)
+    #checkRL(lastcolumPLay)
     return 0
 
 # Do check win vertical
 # -- pre-check at least 4 colums with same or more height level
 # -- full-check 
-def checkH(col):
+def checkH(lastColSelected):
+    col=lastColSelected
     # get the actual height of the move for the pre-check
     actualHeight= col_height[col]
     # get the amount of posible values (must be 4 or grater)
     count=0
+    breakpoint()
     for x in col_height:
         if x>=actualHeight:
             count+=1
     # check if the count is enought to go into full-check
     if(count>=4):
+        breakpoint()
         # do full-check
-        consecutive_player=1
-        pWinRow=ind_height-actualHeight
+        consecutivePlayer=1
+        pWinRow=ind_height-(actualHeight-1)
         actual_player=board[pWinRow][col]
         #go Left
         i=1
-        while(pWinRow-i>=0):
+        while(col-i>=0):
             if(board[pWinRow][col-i]==actual_player):
-                consecutive_player+=1
-                i+=1
+                consecutivePlayer+=1
             else:
-                continue
+                i=7
+            i+=1  
         #go Right
         i=1
-        while(pWinRow+i<=6):
+        while(col+i<=6):
             if(board[pWinRow][col+i]==actual_player):
-                consecutive_player+=1
-                i+=1
+                consecutivePlayer+=1
             else:
-                continue
-        if(consecutive_player>3):
+                i=7
+            i+=1
+        if(consecutivePlayer>3):
             print("WIIIN")
             showBoard()
-            
-
         print('posible victoria de :' +str(actual_player))
-    return 0
+
 
 # Do check win vertical
 #
@@ -178,6 +181,9 @@ def checkRL():
 def runGame(n):
     print("In this game u select a colum to play betwen 0-6")
     resetBoard()
+    board[5]=[0,0,1,1,2,2,2]
+    for x in range(4):
+        col_height[x]=1
     showBoard()
     for i in range(n):
         playTurn(i%2)
