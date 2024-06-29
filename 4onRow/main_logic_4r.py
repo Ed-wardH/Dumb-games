@@ -21,6 +21,9 @@ players=[0,1,2]
 ind_height= 5   # total height=6 // max index=5
 ind_width = 6   # total width =7 // max index=6
 
+#   - WINs = variables to keep track of wins
+win_list=[1,0,0,0]  # H, V, LR, RL
+win_bool=True
 
 
 #=============================================
@@ -44,6 +47,14 @@ def showBoard():
         print(line)
         line=""
     return 0
+
+# =====\ resetWins() \=====
+def resetWin():
+    global win_bool 
+    win_bool= False
+    for x in range(len(win_list)):
+        win_list[x]=0
+    
 
 # =====\ resetBoard() \=====
 # 1- 
@@ -118,17 +129,19 @@ def checkH(lastColSelected):
     actualHeight= col_height[col]
     # get the amount of posible values (must be 4 or grater)
     count=0
-    breakpoint()
+    
     for x in col_height:
         if x>=actualHeight:
             count+=1
     # check if the count is enought to go into full-check
     if(count>=4):
+        
         breakpoint()
         # do full-check
         consecutivePlayer=1
         pWinRow=ind_height-(actualHeight-1)
         actual_player=board[pWinRow][col]
+        print('posible victoria de: ' +str(actual_player))
         #go Left
         i=1
         while(col-i>=0):
@@ -146,9 +159,11 @@ def checkH(lastColSelected):
                 i=7
             i+=1
         if(consecutivePlayer>3):
+            global win_bool
+            win_bool=True
+            win_list[0]=1
             print("WIIIN")
-            showBoard()
-        print('posible victoria de :' +str(actual_player))
+        
 
 
 # Do check win vertical
@@ -172,22 +187,32 @@ def checkRL():
 #checkHeight(0)
 #print(checkAbleMove("8"))
 #playTurn(8)
+#resetWin()
 #resetBoard()
 #showBoard()
+
+# CUSTOM TEST 
+def custom_test1():
+    board[5]=[0,0,0,0,2,2,2]
+    for x in range(4):
+        col_height[x]=1
 
 #=============================================
 #       RUN GAME
 #=============================================
 def runGame(n):
+    #   Show game instructions
     print("In this game u select a colum to play betwen 0-6")
+    #   Reset game
     resetBoard()
-    board[5]=[0,0,1,1,2,2,2]
-    for x in range(4):
-        col_height[x]=1
+    resetWin()
+    #   Play game until win
+    rounds=0
     showBoard()
-    for i in range(n):
-        playTurn(i%2)
+    while((not win_bool) and (rounds<n)):
+        playTurn(rounds%2)
         showBoard()
+        rounds+=1
     print("WIP")
 
 runGame(10)
